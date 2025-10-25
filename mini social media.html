@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Social Media App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #fff;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      border-bottom: 1px solid #ddd;
+    }
+    #profile {
+      background: #fff;
+      padding: 20px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    #profile h2 {
+      margin: 0;
+    }
+    #posts-container {
+      width: 90%;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+    .post {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .post .author {
+      font-weight: bold;
+    }
+    .post .content {
+      margin: 10px 0;
+    }
+    .post button {
+      background: none;
+      border: none;
+      color: #1877f2;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .comments {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 2px solid #ddd;
+    }
+    .comment {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+    #new-post {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+    }
+    #new-post input {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    #new-post button {
+      margin-left: 10px;
+      padding: 10px;
+      border: none;
+      background: #1877f2;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Mini Social Media</header>
+
+  <div id="profile">
+    <h2>@student_user</h2>
+    <p>Learning HTML, CSS & JavaScript 🚀</p>
+  </div>
+
+  <div id="new-post">
+    <input type="text" id="postContent" placeholder="What's on your mind?">
+    <button onclick="addPost()">Post</button>
+  </div>
+
+  <div id="posts-container"></div>
+
+  <script>
+    let postsContainer = document.getElementById("posts-container");
+
+    function addPost() {
+      let content = document.getElementById("postContent").value;
+      if (content.trim() === "") return;
+
+      let postDiv = document.createElement("div");
+      postDiv.className = "post";
+
+      postDiv.innerHTML = `
+        <div class="author">@student_user</div>
+        <div class="content">${content}</div>
+        <button onclick="likePost(this)">Like</button>
+        <button onclick="addComment(this)">Comment</button>
+        <div class="comments"></div>
+      `;
+
+      postsContainer.prepend(postDiv);
+      document.getElementById("postContent").value = "";
+    }
+
+    function likePost(button) {
+      if (button.innerText === "Like") {
+        button.innerText = "Liked";
+        button.style.fontWeight = "bold";
+      } else {
+        button.innerText = "Like";
+        button.style.fontWeight = "normal";
+      }
+    }
+
+    function addComment(button) {
+      let comment = prompt("Enter your comment:");
+      if (comment && comment.trim() !== "") {
+        let commentsDiv = button.parentElement.querySelector(".comments");
+        let newComment = document.createElement("div");
+        newComment.className = "comment";
+        newComment.innerText = "@user123: " + comment;
+        commentsDiv.appendChild(newComment);
+      }
+    }
+  </script>
+
+</body>
+</html>
